@@ -154,7 +154,6 @@ for(let i = 0; i < 7; i++) {
   } else {""}
 }
 
-  // alert("not find, buscando como el rival puede hacer un tres en fila")
 return noRegalarWin()
 
 }

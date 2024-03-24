@@ -30,9 +30,6 @@ export const Table = ({cpu, sendWinner}) => {
 
   function handleClick(row) {
     const newTable = [...table];
-
-    console.log(row)
-
     if (row == undefined){
       ramdonClick()
       return
@@ -41,7 +38,7 @@ export const Table = ({cpu, sendWinner}) => {
 
     if (celda == -1) {
       if(cpu && turno == false){
-        ramdonClick
+        ramdonClick()
         return
       }
     }
