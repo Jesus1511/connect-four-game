@@ -5,6 +5,9 @@ export function iaSelection (table){
   function createTable (row, rival){
     const newTable = JSON.parse(JSON.stringify(table));
     const celda = findSpace(newTable[row])
+    if(celda < 0){
+      return false
+    }
     rival ? newTable[row][celda] = 1 : newTable[row][celda] = 2
     return newTable
   }
@@ -12,6 +15,9 @@ export function iaSelection (table){
   function createTableCustom (row, rival, tables){
     const newTable = JSON.parse(JSON.stringify(tables));
     const celda = findSpace(newTable[row])
+    if(celda < 0){
+      return false
+    }
     rival ? newTable[row][celda] = 1 : newTable[row][celda] = 2
     return newTable
   }
@@ -20,6 +26,9 @@ export function iaSelection (table){
 
   function handleFour (row, rival){
     const newTable = createTable(row, rival)
+    if(!newTable){
+      return false
+    }
     if (checkWin(newTable) == 1){
       if(rival){
         return true
@@ -36,13 +45,16 @@ export function iaSelection (table){
 // ###############################################################
 
   function handleThree (row, rival){
-    const {winnerThree, row_col_two} = checkTwo(table)
+    const {winnerTwo, row_col_two} = checkTwo(table)
     const newTable = createTable(row, rival)
-    const {winnerTwo, row_col_three} = checkThree(newTable)
+    if(!newTable){
+      return false
+    }
+    const {winnerThree, row_col_three} = checkThree(newTable)
 
-    for(let x = 0; x < 6; x++){
+    for(let x = 0; x < 7; x++){
 
-      const looseTable = createTable(x,true)
+      const looseTable = createTableCustom(x,true, newTable)
       if(checkWin(looseTable) == 1){
         return false
       } else {
@@ -75,24 +87,28 @@ export function iaSelection (table){
 
 function randomPlay() {
   const randomNumber = Math.random();
-  const thresholds = [0.33, 0.66, 0.76, 0.86, 0.91];
-  const percentages = [3, 2, 5, 0, 1, 4]; // Los porcentajes se han colocado en un array junto con el valor 0 al final
+  const thresholds = [0.4, 0.55, 0.7, 0.8, 0.9, 0.95]; // Umbrales ajustados para reflejar las nuevas probabilidades
+  const percentages = [3, 2, 4, 0, 6, 5]; // Se agrega el número 1 con el porcentaje deseado
   for (let i = 0; i < thresholds.length; i++) {
-    if (randomNumber < thresholds[i]) {
+    if (randomNumber <= thresholds[i]) {
       return percentages[i];
     } 
   }
-  return 0
+  return 1; // Porcentaje restante
 }
+
 
 function noRegalarWin() {
   const result = randomPlay()
   const newTable = createTable(result, false)
-  for(let i = 0; i < 6; i++){
+  if(!newTable){
+    return 
+  }
+  for(let i = 0; i < 7; i++){
     const looseTable = createTableCustom(i, true, newTable)
-    console.log(checkWin(looseTable))
     if(checkWin(looseTable) == 1){
       noRegalarWin()
+      return
     }
   } 
   return result
@@ -101,47 +117,44 @@ function noRegalarWin() {
 // #############################################################
 
 function findSpace(column) {
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 6; i++) {
     if (column[i] !== 0) {
       return i-1;
     } else if(i === 6 && column[i] === 0) {
       return 6;
     }
-  } 
+  }
+  return 5
 }
 
 // ###############################################################
 
-    for(let i = 0; i < 6; i++) {
+    for(let i = 0; i < 7; i++) {
         if(handleFour(i,false)){
           return i
         } else {""}
     }
 
 
-    for(let i = 0; i < 6; i++) {
+    for(let i = 0; i < 7; i++) {
       if(handleFour(i,true)){
         return i
       } else {""}
   }
 
-  // alert("not find, buscando como hacer un tres en fila")
-
-    for(let i = 0; i < 6; i++) {
-      if(handleThree(i,false)){
-        return i
-      } else {""}
-  }
-
-  // alert("not find, buscando como el rival puede hacer un tres en fila")
-
-  for(let i = 0; i < 6; i++) {
+  for(let i = 0; i < 7; i++) {
     if(handleThree(i,true)){
       return i
     } else {""}
 }
 
-// alert("ramdon")
+for(let i = 0; i < 7; i++) {
+  if(handleThree(i,false)){
+    return i
+  } else {""}
+}
+
+  // alert("not find, buscando como el rival puede hacer un tres en fila")
 return noRegalarWin()
 
 }

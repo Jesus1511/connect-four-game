@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import GeneralData from './App';
+import { GeneralData } from './App';
 
 export const Menu = () => {
 

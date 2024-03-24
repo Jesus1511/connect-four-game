@@ -1,8 +1,9 @@
 export function checkWin(table) {
     // Verificar horizontal
-    for (let row = 0; row < 6; row++) {
-        for (let col = 0; col < 4; col++) {
-            if (table[row][col] !== 0 &&
+    for (let row = 0; row < 7; row++) {
+        for (let col = 0; col < 3; col++) {
+            if (table[row] && table[row][col] !== undefined && // Comprobaciones añadidas
+                table[row][col] !== 0 &&
                 table[row][col] === table[row][col + 1] &&
                 table[row][col] === table[row][col + 2] &&
                 table[row][col] === table[row][col + 3]) {
@@ -10,12 +11,14 @@ export function checkWin(table) {
             }
         }
     }
+    
 
 
     // Verificar vertical
-    for (let col = 0; col < 7; col++) {
-        for (let row = 0; row < 3; row++) {
-            if (table[row][col] !== 0 &&
+    for (let col = 0; col < 6; col++) {
+        for (let row = 0; row < 4; row++) {
+            if (table[row] && table[row][col] !== undefined &&
+                table[row][col] !== 0 &&
                 table[row][col] === table[row + 1][col] &&
                 table[row][col] === table[row + 2][col] &&
                 table[row][col] === table[row + 3][col]) {
@@ -25,9 +28,10 @@ export function checkWin(table) {
     }
 
     // Verificar diagonal (de izquierda a derecha)
-    for (let row = 0; row < 3; row++) {
-        for (let col = 0; col < 4; col++) {
-            if (table[row][col] !== 0 &&
+    for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 3; col++) {
+            if (table[row] && table[row][col] !== undefined &&
+                table[row][col] !== 0 &&
                 table[row][col] === table[row + 1][col + 1] &&
                 table[row][col] === table[row + 2][col + 2] &&
                 table[row][col] === table[row + 3][col + 3]) {
@@ -37,9 +41,10 @@ export function checkWin(table) {
     }
 
     // Verificar diagonal (de derecha a izquierda)
-    for (let row = 0; row < 3; row++) {
-        for (let col = 3; col < 7; col++) {
-            if (table[row][col] !== 0 &&
+    for (let row = 0; row < 4; row++) {
+        for (let col = 3; col < 6; col++) {
+            if (table[row] && table[row][col] !== undefined &&
+                table[row][col] !== 0 &&
                 table[row][col] === table[row + 1][col - 1] &&
                 table[row][col] === table[row + 2][col - 2] &&
                 table[row][col] === table[row + 3][col - 3]) {
@@ -70,8 +75,8 @@ export function checkThree(table) {
 
     // Verificar horizontal
     try {
-        for (let row = 0; row < 6; row++) {
-        for (let col = 0; col < 4; col++) { // Cambiado de 5 a 4
+        for (let row = 0; row < 7; row++) {
+        for (let col = 0; col < 3; col++) { // Cambiado de 5 a 4
             if (table[row][col] !== 0 &&
                 table[row][col] === table[row][col + 1] &&
                 table[row][col] === table[row][col + 2] &&
@@ -82,8 +87,8 @@ export function checkThree(table) {
     }
 
     // Verificar vertical
-    for (let col = 0; col < 7; col++) {
-        for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 6; col++) {
+        for (let row = 0; row < 4; row++) {
             if (table[row][col] !== 0 &&
                 table[row][col] === table[row + 1][col] &&
                 table[row][col] === table[row + 2][col] &&
@@ -94,8 +99,8 @@ export function checkThree(table) {
     }
 
     // Verificar diagonal (de izquierda a derecha)
-    for (let row = 0; row < 3; row++) {
-        for (let col = 0; col < 4; col++) {
+    for (let row = 0; row < 4; row++) {
+        for (let col = 0; col < 3; col++) {
             if (table[row][col] !== 0 &&
                 table[row][col] === table[row + 1][col + 1] &&
                 table[row][col] === table[row + 2][col + 2] &&
@@ -106,8 +111,8 @@ export function checkThree(table) {
     }
 
     // Verificar diagonal (de derecha a izquierda)
-    for (let row = 0; row < 3; row++) {
-        for (let col = 3; col < 7; col++) {
+    for (let row = 0; row < 4; row++) {
+        for (let col = 3; col < 6; col++) {
             if (table[row][col] !== 0 &&
                 table[row][col] === table[row + 1][col - 1] &&
                 table[row][col] === table[row + 2][col - 2] &&
@@ -120,7 +125,6 @@ export function checkThree(table) {
     catch{
         return {winnerOne: 0, row_col_one: null};
     }
-
     return {winnerOne: 0, row_col_one: null};
 }
 
@@ -134,8 +138,8 @@ export function checkThree(table) {
 export function checkTwo(table) {
     // Verificar horizontal
     try{
-        for (let row = 0; row < 6; row++) {
-            for (let col = 0; col < 7; col++) {
+        for (let row = 0; row < 7; row++) {
+            for (let col = 0; col < 6; col++) {
                 if (col < 5 && table[row][col] !== 0 &&
                     table[row][col] === table[row][col + 1] &&
                     table[row][col-1] == 0 &&
@@ -146,8 +150,8 @@ export function checkTwo(table) {
         }
     
         // Verificar vertical
-        for (let col = 0; col < 7; col++) {
-            for (let row = 0; row < 3; row++) {
+        for (let col = 0; col < 6; col++) {
+            for (let row = 0; row < 4; row++) {
                 if (table[row][col] !== 0 &&
                     table[row][col] === table[row + 1][col] &&
                     ((table[row+2][0] == 0 && table[row+3][0] == 0 ) || (table[row-1][0] == 0 && table[row-2][0])) ) {
@@ -157,8 +161,8 @@ export function checkTwo(table) {
         }
     
         // Verificar diagonal (de izquierda a derecha)
-        for (let row = 0; row < 3; row++) {
-            for (let col = 0; col < 4; col++) {
+        for (let row = 0; row < 4; row++) {
+            for (let col = 0; col < 3; col++) {
                 if (table[row][col] !== 0 &&
                     table[row][col] === table[row + 1][col + 1] &&
                     table[row+2][col+2] == 0 &&
@@ -169,8 +173,8 @@ export function checkTwo(table) {
         }
     
         // Verificar diagonal (de derecha a izquierda)
-        for (let row = 0; row < 3; row++) {
-            for (let col = 6; col > 2; col--) {
+        for (let row = 0; row < 4; row++) {
+            for (let col = 4; col > 2; col--) {
                 if (table[row][col] !== 0 &&
                     table[row][col] === table[row + 1][col - 1] &&
                     table[row+2][col-2] == 0 &&
