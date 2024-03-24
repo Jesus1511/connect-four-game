@@ -126,7 +126,7 @@ export const Table = ({cpu, sendWinner}) => {
     <>
       <div className="flex absolute transision top-[200px] left-[50%] translate-x-[-50%] bg-slate-800 rounded-[20px]">
           {table.map((row, rowIndex) => (
-              <div className={`flex flex-col justify-center items-center ${canClick?"cursor-pointer ":""} md:px-[20px] transition ${turno && "hover:bg-slate-700"} md:w-[80px]  w-[55px]`} onClick={canClick ? () => handleClick(rowIndex) : null} key={rowIndex}>
+              <div className={`flex flex-col justify-center items-center ${canClick?"cursor-pointer ":""} md:px-[20px] transition ${turno && "hover:bg-slate-700"} md:w-[80px]  w-[45px]`} onClick={canClick ? () => handleClick(rowIndex) : null} key={rowIndex}>
                   {row.map((cell, cellIndex) => (
                       <span className=" m-[15px] mx flex justify-center items-center w-[45px] rounded-[50%] md:w-[65px] md:h-[50px] bg-transparent h-[35px]"  key={cellIndex}>
                         {table[rowIndex][cellIndex] == 2 && (
