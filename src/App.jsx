@@ -1,25 +1,21 @@
 import { useState, createContext } from "react";
-import {Menu} from './Menu.jsx';
-import {Play} from './Play.jsx';
+import {Menu} from './components/Menu.jsx';
+import {Play} from './components/Play.jsx';
+import { Rules } from "./components/Rules.jsx";
+import { Routes, Route } from "react-router-dom";
 
 export const GeneralData = createContext();
 
 export const App = () => {
-  const [vsPlayer, setVsPlayer] = useState(false);
-  const [vsCpu, setVsCpu] = useState(false);
-  const [rules, setRules] = useState(false);
-
+  const [vs, setVs] = useState(false);
+  
   return (
-    <GeneralData.Provider value={{ vsPlayer, vsCpu, rules, setVsPlayer, setVsCpu, setRules }}>
-      {!vsPlayer && !vsCpu && !rules && <Menu />}
-      {vsCpu && (<Play cpu={true}/>)}
-      {vsPlayer && (<Play cpu={false}/>)}
-      {rules && (
-        <div className="flex justify-center w-[100vw] py-[20vw] md:px-[20vw] px-[10vw] ">
-          <p className=" text-center">The rules of four in a row are very simple. It is always played between 2 players and on a 7x6 square board. On each turn, each player places a piece of their color in a column and it falls to the first available space. Whoever manages to place 4 pieces of the same color in a row horizontally, vertically or obliquely wins. If no one succeeds, the game ends in a draw.</p>
-          <button className="bg-red-500 w-[200px] rounded-[12px] hover:bg-red-600 transition hover:transition absolute left-[50%] translate-x-[-50%] top-[400px] py-[15px] cursor-pointer m-[20px] px-[20px]" onClick={()=>setRules(false)}>Go Back</button>
-        </div>
-      )}
+    <GeneralData.Provider value={{ vs, setVs }}>
+      <Routes>
+        <Route path='/' element={<Menu />}/>
+        <Route path='/play' element={<Play cpu={vs}/>}/>
+        <Route path='/rules' element={<Rules />}/>
+      </Routes>
     </GeneralData.Provider>
   );
 };

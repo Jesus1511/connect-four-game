@@ -1,15 +1,13 @@
 import { useState, useEffect, useContext } from "react";
 import { TurnoContext } from "./Play";
-import { checkWin } from "./checkWin";
-import { iaSelection } from "./iaSelection";
-import { Timer } from "./Timer"
+import { checkWin } from "../ia/checkWin";
+import { iaSelection } from "../ia/iaSelection";
 import confetti from "canvas-confetti";
 
 export const Table = ({cpu, sendWinner}) => {
 
   const [winner, setWinner] = useState(0)
   const [canClick, setCanClick] = useState(true)
-  const [reseteador, setReseteador] = useState(true)
   const {turno, setTurno} = useContext(TurnoContext)
   const [table, setTable] = useState(
       [
@@ -63,11 +61,6 @@ export const Table = ({cpu, sendWinner}) => {
     } 
     return 5
   }
-  
-  function handleTimeEnd (){
-    handleClick(Math.floor(Math.random() * 7))
-    setTurno(!turno)
-  }
 
   function handleWin (winners){
     confetti()
@@ -88,12 +81,6 @@ export const Table = ({cpu, sendWinner}) => {
     } else {
       setCanClick(true)
     }
-
-
-    setReseteador(false)
-    setTimeout(() => {
-      setReseteador(true);
-    }, 1); 
 
     if(fullTable()){
       handleWin(3)
@@ -123,9 +110,9 @@ export const Table = ({cpu, sendWinner}) => {
     <>
       <div className="flex absolute transision top-[200px] left-[50%] translate-x-[-50%] bg-slate-800 rounded-[20px]">
           {table.map((row, rowIndex) => (
-              <div className={`flex flex-col justify-center items-center ${canClick?"cursor-pointer ":""} md:px-[20px] transition ${turno && "hover:bg-slate-700"} md:w-[80px]  w-[45px]`} onClick={canClick ? () => handleClick(rowIndex) : null} key={rowIndex}>
+              <div className={`flex flex-col justify-center items-center ${canClick?"cursor-pointer ":""} md:px-[20px] transition ${turno && "hover:bg-slate-700"} md:w-[80px] w-[47px]`} onClick={canClick ? () => handleClick(rowIndex) : null} key={rowIndex}>
                   {row.map((cell, cellIndex) => (
-                      <span className=" m-[15px] mx flex justify-center items-center w-[45px] rounded-[50%] md:w-[65px] md:h-[50px] bg-transparent h-[35px]"  key={cellIndex}>
+                      <span className=" m-[10px] lg:m-[15px] mx flex justify-center items-center w-[45px] rounded-[50%] md:w-[65px] md:h-[50px] bg-transparent h-[35px]"  key={cellIndex}>
                         {table[rowIndex][cellIndex] == 2 && (
                           <span className="w-[35px] megaAnimation inline-block mx rounded-[50%] md:w-[50px] md:h-[50px] h-[35px] z-10 bg-yellow-400"></span>
                         )}
@@ -139,9 +126,6 @@ export const Table = ({cpu, sendWinner}) => {
                   ))}
               </div>
           ))}
-      </div>
-      <div className="md:mt-[680px] transision mt-[650px] text-[30px] mb-[100px] flex justify-center">
-        {reseteador && winner == 0 && (<Timer timeEnd={handleTimeEnd}/>)}
       </div>
     </>
   );

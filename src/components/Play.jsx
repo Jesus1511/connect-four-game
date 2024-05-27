@@ -1,14 +1,16 @@
-import { useState, createContext, useContext } from 'react'; // Import React and createContext
+import { useState, createContext, useContext } from 'react';
 import { Table } from './Table.jsx';
-import { GeneralData } from './App.jsx';
+import { GeneralData } from '../App.jsx';
+import { useNavigate } from 'react-router-dom';
 
-export const TurnoContext = createContext(); // Create a context object
+export const TurnoContext = createContext(); 
 
 export const Play = ({ cpu }) => {
     const [reseteador, setReseteador] = useState(true);
     const [winner, setWinner] = useState();
     const [turno, setTurno] = useState(true);
-    const {setVsPlayer, setVsCpu} = useContext(GeneralData)
+    const {vs, setVs} = useContext(GeneralData)
+    const navigator = useNavigate()
 
     function handleWinner(winner) {
         setWinner(winner);
@@ -25,8 +27,8 @@ export const Play = ({ cpu }) => {
         <>
             <TurnoContext.Provider value={{ turno, setTurno }}>
                 <div className={`flex justify-around px-[20px] mt-[60px] `}>
-                    <button className='bg-white transition text-black py-[7px] rounded-[10px] px-[20px]' onClick={() => {cpu? setVsCpu(false):setVsPlayer(false)}}>MENU</button>
-                    <button className='bg-white transition text-black py-[7px] rounded-[10px] px-[20px]' onClick={() => { setReseteador(false); handleTime() }}>RESTART</button>
+                    <button className='bg-white transition text-black py-[7px] rounded-[10px] px-[20px]' onClick={() => {setVs(!vs); navigator('/')}}>MENU</button>
+                    <button className='bg-white transition text-black py-[7px] rounded-[10px] px-[20px]' onClick={() => { setReseteador(false); handleTime();}}>RESTART</button>
                 </div>
                 {reseteador && (<Table cpu={cpu} sendWinner={handleWinner} />)}
                 <div className='flex w-[100vw] justify-between absolute px-[100px] top-[400px] z-[-20]'>
@@ -53,6 +55,7 @@ export const Play = ({ cpu }) => {
                         <h1 className='text-center'>EMPATE</h1>
                     </div>
                 )}
+                <div className='w-[2px] absolute top-[700px] h-[2px]'></div>
             </TurnoContext.Provider>
         </>
     );
