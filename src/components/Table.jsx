@@ -21,6 +21,25 @@ export const Table = ({cpu, sendWinner}) => {
       ]
   );
 
+//   la ia nos va a reemplazar
+
+// o al menos eso dijo este señor, asi que queria confirmar si esta es capas de vencer a un humano en algún juego de razonamiento
+
+// o antes de eso, si yo soy capas de crear una ia que gane a un humano en un juego de razonamiento
+
+// como no queria morir intentandolo con el ajedrez
+// o que hubieran empates infinitos con el tictactoe
+// asi que elegi el conecta cuatro
+
+// juego amado por todos
+// que es sencillo pero que tambien requiere que pienses bien en lo que vas a hacer
+
+// por lo que despues despues de alrededor de una sesion de unas 8 - 9 horas 
+// mi hijo estaba listo
+// asi que lo puse aprueba contra otras personas alrededor del mundo
+// y esto fue lo que paso
+
+
     function ramdonClick (){
       handleClick(Math.floor(Math.random() * 7))
     }

@@ -87,15 +87,16 @@ export function iaSelection (table){
 
 function randomPlay() {
   const randomNumber = Math.random();
-  const thresholds = [0.4, 0.55, 0.7, 0.8, 0.9, 0.95]; // Umbrales ajustados para reflejar las nuevas probabilidades
-  const percentages = [3, 2, 4, 0, 6, 5]; // Se agrega el número 1 con el porcentaje deseado
+  const thresholds = [0.5, 0.65, 0.8, 0.85, 0.9, 0.95]; // Umbrales ajustados para reflejar las nuevas probabilidades
+  const percentages = [3, 2, 4, 0, 6, 5]; // Valores correspondientes a los umbrales
   for (let i = 0; i < thresholds.length; i++) {
     if (randomNumber <= thresholds[i]) {
       return percentages[i];
-    } 
+    }
   }
-  return 1; // Porcentaje restante
+  return 1; // Valor restante
 }
+
 
 
 function noRegalarWin() {
@@ -106,7 +107,8 @@ function noRegalarWin() {
   }
   for(let i = 0; i < 7; i++){
     const looseTable = createTableCustom(i, true, newTable)
-    if(checkWin(looseTable) == 1){
+    const looseWinTable = createTableCustom(i, false, newTable)
+    if(checkWin(looseTable) == 1 || checkWin(looseWinTable) == 2){
       noRegalarWin()
       return
     }
@@ -131,6 +133,7 @@ function findSpace(column) {
 
     for(let i = 0; i < 7; i++) {
         if(handleFour(i,false)){
+          console.log("win")
           return i
         } else {""}
     }
@@ -138,22 +141,26 @@ function findSpace(column) {
 
     for(let i = 0; i < 7; i++) {
       if(handleFour(i,true)){
+        console.log("defend win")
         return i
       } else {""}
   }
 
-  for(let i = 0; i < 7; i++) {
-    if(handleThree(i,true)){
-      return i
-    } else {""}
-}
+   for(let i = 0; i < 7; i++) {
+     if(handleThree(i,true)){
+       console.log("attack three")
+       return i
+     } else {""}
+ }
 
 for(let i = 0; i < 7; i++) {
   if(handleThree(i,false)){
+    console.log("defend three")
     return i
   } else {""}
 }
 
+console.log("ramdon")
 return noRegalarWin()
 
 }
