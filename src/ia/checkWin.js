@@ -7,7 +7,7 @@ export function checkWin(table) {
                 table[row][col] === table[row][col + 1] &&
                 table[row][col] === table[row][col + 2] &&
                 table[row][col] === table[row][col + 3]) {
-                return table[row][col];
+                return table[row][col]
             }
         }
     }
@@ -22,7 +22,7 @@ export function checkWin(table) {
                 table[row][col] === table[row + 1][col] &&
                 table[row][col] === table[row + 2][col] &&
                 table[row][col] === table[row + 3][col]) {
-                return table[row][col];
+                return table[row][col]
             }
         }
     }
@@ -35,7 +35,7 @@ export function checkWin(table) {
                 table[row][col] === table[row + 1][col + 1] &&
                 table[row][col] === table[row + 2][col + 2] &&
                 table[row][col] === table[row + 3][col + 3]) {
-                return table[row][col];
+                    return table[row][col]
             }
         }
     }
@@ -48,7 +48,7 @@ export function checkWin(table) {
                 table[row][col] === table[row + 1][col - 1] &&
                 table[row][col] === table[row + 2][col - 2] &&
                 table[row][col] === table[row + 3][col - 3]) {
-                return table[row][col];
+                    return table[row][col]
             }
         }
     }
@@ -109,6 +109,19 @@ export function checkThree(table) {
             }
         }
     }
+    // console.log(table[row][col])
+    // console.log(table[row + 1][col - 1])
+    // console.log(table[row + 2][col - 2])
+    // console.log(table[row+3][col-3])
+
+    // console.log(row)
+    // console.log(col)
+    // console.log(row+1)
+    // console.log(col-1)
+    // console.log(row+2)
+    // console.log(col-2)
+    // console.log(row+3)
+    // console.log(col-3)
 
     // Verificar diagonal (de derecha a izquierda)
     for (let row = 0; row < 4; row++) {
@@ -117,6 +130,8 @@ export function checkThree(table) {
                 table[row][col] === table[row + 1][col - 1] &&
                 table[row][col] === table[row + 2][col - 2] &&
                 table[row+3][col-3] == 0) {
+
+
                 return {winnerThree: table[row][col], row_col_three:  [[row, col],[row+1, col-1],[row+2, col-2]]};
             }
         }

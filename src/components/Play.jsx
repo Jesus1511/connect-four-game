@@ -28,7 +28,7 @@ export const Play = ({ cpu }) => {
             <TurnoContext.Provider value={{ turno, setTurno }}>
                 <div className={`flex justify-around px-[20px] mt-[60px] `}>
                     <button className='bg-white transition text-black py-[7px] rounded-[10px] px-[20px]' onClick={() => {setVs(!vs); navigator('/')}}>MENU</button>
-                    <button className='bg-white transition text-black py-[7px] rounded-[10px] px-[20px]' onClick={() => { setReseteador(false); handleTime();}}>RESTART</button>
+                    <button className='bg-white transition text-black py-[7px] rounded-[10px] px-[20px]' onClick={() => { setReseteador(false); handleTime();setTurno(true);}}>RESTART</button>
                 </div>
                 {reseteador && (<Table cpu={cpu} sendWinner={handleWinner} />)}
                 <div className='flex w-[100vw] justify-between absolute px-[100px] top-[400px] z-[-20]'>
